@@ -63,8 +63,6 @@ MEAN workshop intended for Node Conf EU
 
     The app will now run in release mode, listening on port 3000. Hot reload is not available in this mode.
 
-
-
 ## Setting up Minikube
 
 1. Check that you can access registries without a Proxy
@@ -79,7 +77,7 @@ MEAN workshop intended for Node Conf EU
 
  Without Proxy:
   ```
-   minikube start --vm-driver=hyperki
+   minikube start --vm-driver=hyperkit
   ```
 
 With Proxy:
@@ -155,25 +153,6 @@ MONGO_DB_NAME='';
 
 To make configuration changes, edit the [server/routers/mongo.js](server/routers/mongo.js) file.
 
-## Using Mongo in Cloud Foundry for your application
-
-Once you are comfortable using your Mongo instance in Kubernetes you can import the credentials of Mongo instance provided by Compose in Cloud Foundry.
-
-If you have created your instance and setup your credentials, skip to [Set your Helm Charts](#set-your-helm-charts), otherwise continue forward.
-
-### Creating a Compose for MongoDB instance
-
-*  Create an instance MongoDB by searching **Compose for MongoDB** in the [Catalog](https://console.stage1.bluemix.net/catalog/)
-
-* Go to your Dashboard and select the Compose for MongoDB instance that you have created
-
-### Retrieve Credentials
-* Go to Credentials and set your credentials.
-   * You can also import your credentials by clicking on `Choose File` and include your service-specific configuration
-* Copy the `uri` and the `ca_certificate_base64` onto your clipboard.
-
-You will need to seperate the `username` and `password` from the `uri`. The uri in in the form of `https://{username}:{password}@example.net`
-
 ### Set your Helm Charts
 
 ### values.yml
@@ -211,7 +190,7 @@ services:
 ### Secrets (Optional)
 
 If you prefer to not expose your credentials in your `deployment.yml` or `values.yml` you can use a base64 encoded string of your credentials. Using secrets is beyond the scope of this
-README. You can find out how to use secretes in your application by reviewing the links below.
+README. You can find out how to use secrets in your application by reviewing the links below.
 
 * [Creating a Secret Using kubectl create secret](https://kubernetes.io/docs/concepts/configuration/secret/#creating-your-own-secrets)
 * [Encyrption Config](https://kubernetes.io/docs/tasks/administer-cluster/encrypt-data/)
