@@ -10,7 +10,7 @@ MEAN workshop intended for Node Conf EU
 
 # Steps
 
-1. Clone the MERN starter: `git clone https://github.com/a-roberts/MERN-app`
+1. Clone the MERN starter: `git clone https://github.com/IBM-Cloud/MERN-app.git`
 2. Build the project with all dependencies, including dev dependencies, with the command:
 
     ```bash
