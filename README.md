@@ -2,11 +2,9 @@ MEAN workshop intended for Node Conf EU
 
 # Requirements
 - Docker - https://docs.docker.com/install/
+- Kubernetes for Docker - Docker > Preferences > Enable Kubernetes
 - Kubectl - `brew install kubernetes-cli` or https://kubernetes.io/docs/tasks/tools/install-kubectl/
-- Minikube - `brew cask install minikube` or https://kubernetes.io/docs/tasks/tools/install-minikube/
-- Node.js - https://nodejs.org/en/ (Node 8 LTS)
-- Hyperkit - https://github.com/kubernetes/minikube/blob/master/docs/drivers.md#hyperkit-driver
-
+- Node.js - https://nodejs.org/en/ (Node 8 LTS) or NVM
 
 # Steps
 
@@ -65,46 +63,24 @@ MEAN workshop intended for Node Conf EU
 
 ## Setting up Minikube
 
-1. Check that you can access registries without a Proxy
-
-`curl --proxy "" https://cloud.google.com/container-registry/`
-
-2. Enure your Docker deamon is started
+1. Enure your Docker deamon is started
 
 `docker images`
 
-3. Start minikube
-
- Without Proxy:
-  ```
-   minikube start --vm-driver=hyperkit
-  ```
-
-With Proxy:
-  ```
-   minikube start --vm-driver=hyperkit --docker-env HTTP_PROXY=http://your-http-proxy-host:your-http-proxy-port  --docker-env HTTPS_PROXY=http(s)://your-https-proxy-host:your-https-proxy-port
-  ```
-
-4. Set the minikube context
-`kubectl config use-context minikube`
-
-5. Verify that the kubectl is configured to use your cluster
+1. Verify that the kubectl is configured to use your cluster
 `kubectl cluster-info`
 
-6. View the Kubernetes dashboard
-`minikube dashboard`
 
 ## Deployment to Kubernetes
 
-1) `eval $(minikube docker-env)`
-2) Build and tag the app with Docker: `docker build -t mern-app:v1 .`
-3) Look at helm chart and ensure it refers to the image we just built and tagged above, key part being
+1. Build and tag the app with Docker: `docker build -t mern-app:v1.0.0 .`
+1. Look at helm chart and ensure it refers to the image we just built and tagged above, key part being
 ```
 repository: mern-app
 tag: v1
 ```
-4) `helm install --name lovemongo chart/mernexample`
-5) Check all pods come up with `kubectl get pods`
+1. `helm install --name mern-app chart/mernexample`
+1. Check all pods come up with `kubectl get pods`
 
 ## Checking it works
 To view the application go to `http://<cluster-external-IP>:<external-port>` in a browser. It should look something like this: `http://169.47.252.58:32080`
@@ -134,24 +110,6 @@ mongo                 NodePort    172.21.67.175    <none>        27017:30308/TCP
 ```
 
 Where the column labeled `PORT(S)` has two values. The port number on the left is the internal / guest port from the container. The port number on the right is the external port. The external port is what you will use to access your application.
-
-
-## Mongo Configuration
-
-**NOTE:** Since this project connects to a running Mongo server, you must provide one when working with native commands. Install instructions are here: [https://docs.mongodb.com/manual/administration/install-community](https://docs.mongodb.com/manual/administration/install-community)
-
-### Mongo Configuration locally
-
-The project's access to Mongo is controlled through these environment variables with their default values shown:
-
-```javascript
-MONGO_URL='localhost:27017';
-MONGO_USER='';
-MONGO_PASS='';
-MONGO_DB_NAME='';
-```
-
-To make configuration changes, edit the [server/routers/mongo.js](server/routers/mongo.js) file.
 
 ### Set your Helm Charts
 
