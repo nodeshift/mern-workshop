@@ -1,0 +1,17 @@
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: frontend
+  tag: v1.0.0
+  pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 200m
+      memory: 300Mi
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+service:
+  name: frontend
+  type: NodePort
+  servicePort: 80 # the port where nginx serves its traffic

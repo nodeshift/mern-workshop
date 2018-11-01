@@ -1,0 +1,22 @@
+replicaCount: 1
+revisionHistoryLimit: 1
+image:
+  repository: backend
+  tag: v1.0.0
+  pullPolicy: IfNotPresent
+  resources:
+    requests:
+      cpu: 200m
+      memory: 300Mi
+livenessProbe:
+  initialDelaySeconds: 30
+  periodSeconds: 10
+service:
+  name: backend
+  type: NodePort
+  servicePort: 3000
+services:
+  mongo:
+     url: mongo-mongodb
+     name: todos
+     env: production

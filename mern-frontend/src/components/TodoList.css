@@ -1,0 +1,13 @@
+.TodoList {
+    list-style-type: none;
+    max-width: 400px;
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 0.5em;
+    padding: 0.5em 0.5em;
+    text-align: center;
+    height: 65vh;
+    box-shadow: 1px 1px 5px grey;
+    background: whitesmoke;
+    overflow: auto;
+}

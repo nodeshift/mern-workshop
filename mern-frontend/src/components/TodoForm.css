@@ -1,0 +1,28 @@
+.TodoForm {
+  position: relative;
+  display: flex;
+  max-width: 400px;
+  width: 100%;
+  border: 1px solid grey;
+  border-radius: 0.5em;
+  padding: 0.5em 0.5em;
+  text-align: center;
+  height: 15vh;
+  box-shadow: 1px 1px 5px grey;
+  background: whitesmoke;
+	flex-flow: column nowrap;
+	align-items: center;
+	justify-content: space-around;
+  background: whitesmoke;
+}
+
+input {
+	padding: 10px;
+	margin: 5px 0;
+	background-color: inherit;
+	color: dimgrey;
+	display: block;
+	width: 95%;
+	border: 1px solid #ccc;
+	transition: .5s all;
+}

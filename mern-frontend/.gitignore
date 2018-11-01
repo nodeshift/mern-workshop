@@ -1,0 +1,8 @@
+# modules
+node_modules
+
+# builds
+build
+
+# VSCODE cofigs
+tasks.json
