@@ -9,7 +9,7 @@ Install Docker on your Mac.
 
 ```
 docker build -t backend:v1.0.0 .
-docker run -d -p 27017:27017 mongo
+docker run -d -p 27017:27017 --name mern-mongo mongo
 export MONGO_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mern-mongo)
 docker run -p 30555:30555 -e MONGO_URL=$MONGO_URL backend:v1.0.0
 ```
