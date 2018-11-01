@@ -10,9 +10,8 @@ Install Docker on your Mac.
 ```
 docker build -t backend:v1.0.0 .
 docker run -d -p 27017:27017 mongo
-docker inspect <the mongo container name> | grep IPAddress
-export MONGO_URL=the IP address from above>
-docker run -p 30555:30555 -e MONGO_URL=$MONGO_URL (this is the IP address from above) backend:v1.0.0
+export MONGO_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mern-mongo)
+docker run -p 30555:30555 -e MONGO_URL=$MONGO_URL backend:v1.0.0
 ```
 
 ### Kubernetes
