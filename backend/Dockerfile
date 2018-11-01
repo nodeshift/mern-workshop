@@ -1,9 +1,9 @@
 # Install the app dependencies in a full Node docker image
 FROM node:8
-  
+
 WORKDIR "/app"
 
-# Install OS updates 
+# Install OS updates
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get clean \
@@ -17,10 +17,10 @@ RUN npm install --production
 
 # Copy the dependencies into a Slim Node docker image
 FROM node:8-slim
-  
+
 WORKDIR "/app"
 
-# Install OS updates 
+# Install OS updates
 RUN apt-get update \
  && apt-get dist-upgrade -y \
  && apt-get clean \
@@ -31,8 +31,8 @@ COPY --from=0 /app/node_modules /app/node_modules
 COPY . /app
 
 ENV NODE_ENV production
-ENV PORT 3000
+ENV PORT 30555
 
 
-EXPOSE 3000
+EXPOSE 30555
 CMD ["npm", "start"]
