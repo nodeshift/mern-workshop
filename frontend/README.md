@@ -22,16 +22,16 @@ Deploy MongoDB into your cluster with `helm install --name mongo --set usePasswo
 
 MongoDB has a variety of [configuration options](https://github.com/helm/charts/tree/master/stable/mongodb) you can provide with `--set`.
 
-Deploy this Node.js application into your cluster with  `helm install --name nodeapp chart/mernexample`. 
+Deploy this Node.js application into your cluster with  `helm install --name frontend chart/frontend`. 
 
-This Node.js application connects to the MongoDB service and will retry on connection loss (so the MongoDB pod can be killed).
+This Node.js application connects to the backend which in turn connects to MongoDB.
 
 Data from MongoDB is persisted at `$HOME/.docker/Volumes/mongo-mongodb`.
 
 Tested on Mac with Kubernetes (docker-for-desktop).
 
-### Deploying our frontend
-- `helm install --name backend chart/frontend`
+### Deploying the frontend
+- `helm install --name frontend chart/frontend`
 
 ### Deploying the backend
-See the backend repository. Frontend listens on port 3001, backend listens on port 3000.
+See the backend folder of this repository.
