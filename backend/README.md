@@ -92,4 +92,4 @@ This works because in our Node.js application, `service.yaml` has the following 
 
 The `appmetrics-prometheus` module sends data to the `/metrics` endpoint, which is scraped by Prometheus automatically: you can view the collected metrics at `localhost:30555/metrics`.
 
-With the Prometheus UI, create a graph for `http_requests_total` and then run `./create-todos.sh 500`. You will see the request total increase by 500 (look for POSTs, an example graph is `http_requests_total{code="200",handler="/api/todos",instance="10.1.1.15:3000",job="kubernetes-service-endpoints",kubernetes_name="backend-service",kubernetes_namespace="default",method="post"}`). 
+With the Prometheus UI, create a graph for `http_requests_total` and then run `./create-todos.sh 500`. You will see the request total increase by 500 (look for POSTs, an example graph is `http_requests_total{code="200",handler="/api/todos",instance="10.1.1.15:30555",job="kubernetes-service-endpoints",kubernetes_name="backend-service",kubernetes_namespace="default",method="post"}`). 
