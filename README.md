@@ -22,12 +22,11 @@ Tested using the Kubernetes service provided by [Docker for Desktop on Mac](http
 ## Quickstart for Docker
 - `docker build -f frontend/Dockerfile -t frontend:v1.0.0 frontend`
 - `docker build -f backend/Dockerfile  -t backend:v1.0.0 backend`
-- `docker pull mongodb`
-- `docker run -d -p 27017:27017 mongo `
-- `docker inspect <MongoDB container name> | grep IPAddress`
-- `export MONGO_URL=<the IP address from above>`
-- `docker run -p 3000:3000 -e MONGO_URL=$MONGO_URL backend:v1.0.0`
-- `docker run -p 3001:3001 frontend:v1.0.0`
+- `docker pull mongo`
+- `docker run -d -p 27017:27017 --name mern-mongo mongo `
+- `export MONGO_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mern-mongo)`
+- `docker run -p 30555:30555 -e MONGO_URL=$MONGO_URL backend:v1.0.0`
+- In a new Terminal - `docker run -p 3001:80 frontend:v1.0.0`
 
 ## Quickstart for Kubernetes
 Requires building the images first, see the quickstart for Docker section.
@@ -35,4 +34,4 @@ Requires building the images first, see the quickstart for Docker section.
 - Set your Kubernetes context so you're pointing to a Kubernetes environment.
 - `helm install --name mongo --set usePassword=false,replicaSet.enabled=true,service.type=LoadBalancer,replicaSet.replicas.secondary=3 stable/mongodb`
 - `helm install --name backend backend/chart/backend`
-- `helm install —-name frontend frontend/chart/frontend`
+- `helm install --name frontend frontend/chart/frontend`
