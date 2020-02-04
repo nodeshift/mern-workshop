@@ -1,8 +1,9 @@
 const path = require('path');
+let envMode = "development"
 
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+var TerserPlugin = require('terser-webpack-plugin');
 var OptimizeJSPlugin = require('optimize-js-plugin');
 
 var env = process.env.NODE_ENV || 'development'
@@ -19,19 +20,18 @@ console.log('> NODE_ENV:', env);
 
 if ( env === 'production') {
     plugins.push(
-        new webpack.optimize.UglifyJsPlugin(),
+        new TerserPlugin(),
         new OptimizeJSPlugin({
             sourceMap: false
         })
     );
+    envMode = "production";
 }
 
 
 module.exports = {
-    entry: [
-        'react-hot-loader/patch',
-        './src/index.js'
-    ],
+    mode: envMode,
+    entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'app.bundle.js',
@@ -42,10 +42,17 @@ module.exports = {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/,
-                query: {
-                    presets: ["es2015", "react", "stage-2"],
-                    plugins: ["react-hot-loader/babel"]
-                }
+                options: {
+                    presets:[
+                        '@babel/preset-env',
+                        {
+                            plugins: [
+                                '@babel/plugin-proposal-class-properties'
+                            ]
+                        }
+                    ]
+                },
+
             },
             {
                 test: /\.css$/,
@@ -59,8 +66,11 @@ module.exports = {
                     }
                 ]
             },
-            { test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/, loader: "file-loader" }
+            {
+                test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                loader: 'file-loader'
+            }
         ]
     },
     plugins: plugins
-};
+}
