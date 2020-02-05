@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from "uuid";
 import style from "./App.css";
 import Title from '../components/Title';
 import TodoForm from '../components/TodoForm';
@@ -66,8 +65,8 @@ class App extends React.Component {
   }
 
   render = () => {
-    return ( <
-      div className = {
+    return ( 
+      <div className = {
         style.TodoApp
       } >
       <
@@ -84,8 +83,8 @@ class App extends React.Component {
       removeTodo = {
         this.removeTodo
       }
-      /> < /
-      div >
+      /> 
+      </div>
     )
   }
 
