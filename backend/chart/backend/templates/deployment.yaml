@@ -1,10 +1,13 @@
-apiVersion: extensions/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: backend-deployment
   labels:
     chart: backend
 spec:
+  selector:
+    matchLabels:
+      app: "backend-selector"
   template:
     metadata:
       labels:
