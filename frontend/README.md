@@ -20,7 +20,7 @@ Check `values.yaml` points to the image you've built, e.g. `frontend:v1.0.0`.
 
 Deploy MongoDB into your cluster with `helm install --name mongo --set usePassword=false,replicaSet.enabled=true,service.type=LoadBalancer,replicaSet.replicas.secondary=3 stable/mongodb`
 
-MongoDB has a variety of [configuration options](https://github.com/helm/charts/tree/master/stable/mongodb) you can provide with `--set`.
+MongoDB has a variety of [configuration options](https://github.com/helm/charts/tree/HEAD/stable/mongodb) you can provide with `--set`.
 
 Deploy this Node.js application into your cluster with  `helm install --name frontend chart/frontend`. 
 
