@@ -1,23 +1,21 @@
 import React from 'react';
-import style from "./TodoList.css";
 import Todo from "./Todo";
+import style from "./TodoList.css";
 
-const TodoList = (props) => {
-    return (
-        <ul className = {style.TodoList}>
-            {
-                props.list.map((item) => {
-                    return (
-                      <
-                      Todo todo = {item}
-                       delete = { () => { props.removeTodo(item._id) } }
-                       key = { item._id }
-                      />
-                    )
-                })
-            }
-        </ul>
-    );
+const TodoList = ({ list, removeTodo }) => {
+  return (
+    <ul className={style.TodoList}>
+      {list.map((item) => {
+        return (
+          <Todo 
+            todo={item}
+            remove={() => {removeTodo(item._id)}}
+            key={item._id}
+          />
+        )
+      })}
+    </ul>
+  );
 }
 
 export default TodoList;
