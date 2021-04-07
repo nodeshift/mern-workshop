@@ -28,6 +28,36 @@ Tested using the Kubernetes service provided by [Docker for Desktop on Mac](http
 - `docker run -p 30555:30555 -e MONGO_URL=$MONGO_URL backend:v1.0.0`
 - In a new Terminal - `docker run -p 3001:80 frontend:v1.0.0`
 
+## Quickstart for Docker-Compose
+You can use docker-compose to quickly deploy multiple services at once.
+
+- Create a file called `docker-compose.yaml` at the root of the project and copy copy/paste the following yaml:
+
+```
+version: '3'
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - 3001:80
+    links:
+      - backend
+  backend:
+    build: ./backend
+    ports:
+      - 30555:30555
+    environment:
+      - MONGO_URL=mongo
+    links:
+      - mongo
+  mongo:
+    image: mongo
+    restart: always
+    ports:
+      - 27017:27017
+```
+- Run `docker-compose up` to deploy the services.
+
 ## Quickstart for Kubernetes
 Requires building the images first, see the quickstart for Docker section.
 
