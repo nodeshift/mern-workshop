@@ -17,7 +17,7 @@
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.4",
     "express": "^4.15.3",
-    "log4js": "^3.0.5",
+    "log4js": "^6.4.0",
     "mongoose": "^5.8.11"
   }
 }
