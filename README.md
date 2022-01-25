@@ -63,6 +63,6 @@ Requires building the images first, see the quickstart for Docker section.
 
 - Set your Kubernetes context so you're pointing to a Kubernetes environment.
 - `helm repo add bitnami https://charts.bitnami.com/bitnami`
-- `helm install mongo --set usePassword=false,replicaSet.enabled=true,service.type=LoadBalancer,replicaSet.replicas.secondary=3 bitnami/mongodb`
+- `helm install mongo --set auth.enabled=false,replicaSet.enabled=true,service.type=LoadBalancer,replicaSet.replicas.secondary=3 bitnami/mongodb`
 - `helm install backend backend/chart/backend`
 - `helm install frontend frontend/chart/frontend`
