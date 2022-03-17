@@ -1,5 +1,3 @@
-require('appmetrics-dash').attach();
-require('appmetrics-prometheus').attach();
 const appName = require('./../package').name;
 const http = require('http');
 const express = require('express');
@@ -17,7 +15,6 @@ const port = process.env.PORT || localConfig.port;
 
 logger.info(`Starting server on port ${port}`)
 server.listen(port, function(){
-  logger.info(`backend listening on http://localhost:${port}/appmetrics-dash`);
   logger.info(`backend listening on http://localhost:${port}`);
 });
 

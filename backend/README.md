@@ -74,9 +74,6 @@ View data with the application at `localhost:30555/api/todos` (this is doing a G
 - `helm delete --purge backend` uninstalls the Node.js backend application
 - `helm delete --purge frontend` uninstalls the frontend
 
-### Like dashboards?
-- Visit `localhost:30555/appmetrics-dash` in your web browser to view request, CPU, memory and call stack information automatically gathered for you
-
 ### How about Prometheus?
 - `helm install --name prometheus stable/prometheus --set server.service.type=NodePort`
 
