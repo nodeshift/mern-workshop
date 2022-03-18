@@ -9,7 +9,8 @@
   "scripts": {
     "start": "node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "test": "mocha"
+    "test": "mocha",
+    "coverage": "nyc npm run test"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -23,6 +24,7 @@
     "chai": "^4.3.6",
     "mocha": "^9.2.2",
     "mongodb-memory-server": "^8.4.1",
+    "nyc": "^15.1.0",
     "supertest": "^6.2.2"
   }
 }
