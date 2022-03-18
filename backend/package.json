@@ -8,7 +8,8 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "build": "NODE_ENV=production webpack"
+    "build": "NODE_ENV=production webpack",
+    "test": "mocha"
   },
   "dependencies": {
     "body-parser": "^1.17.1",
@@ -17,5 +18,11 @@
     "express": "^4.15.3",
     "log4js": "^6.4.0",
     "mongoose": "^5.8.11"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "mocha": "^9.2.2",
+    "mongodb-memory-server": "^8.4.1",
+    "supertest": "^6.2.2"
   }
 }
