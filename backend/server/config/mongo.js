@@ -5,6 +5,7 @@ module.exports = {
   "mongoPass" : process.env.MONGO_PASS || '',
   "mongoDBName" : process.env.MONGO_DB_NAME || 'todos',
   "connectOptions": {
+    useNewUrlParser: true,
     ssl: false,
     sslValidate: false,
     poolSize: 1,

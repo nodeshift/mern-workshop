@@ -10,6 +10,7 @@ let should = chai.should();
 const dbHandler = require("../test/db-handler");
 
 describe("Mongo CRUD", function () {
+
   /**
    * Connect to a new in-memory database before running any tests.
    */
