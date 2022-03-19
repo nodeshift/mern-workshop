@@ -11,7 +11,6 @@ module.exports = function(app) {
 
   let mongoConnect = `mongodb://${mongoURL}:${mongoPORT}`;
 
-  mongoose.Promise = global.Promise;
   mongoose.connect(mongoConnect, connectOptions)
     .catch((err) => {
       if (err) console.error(err);
