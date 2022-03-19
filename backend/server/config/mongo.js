@@ -4,5 +4,12 @@ module.exports = {
   "mongoUser" : process.env.MONGO_USER || '',
   "mongoPass" : process.env.MONGO_PASS || '',
   "mongoDBName" : process.env.MONGO_DB_NAME || 'todos',
-  "replicaSet" : process.env.MONGO_REPLICA_SET_NAME || 'rs0'
+  "connectOptions": {
+    ssl: false,
+    sslValidate: false,
+    poolSize: 1,
+    socketTimeoutMS: 5000,
+    connectionTimeoutMS: 0,
+    replicaSet: process.env.MONGO_REPLICA_SET_NAME || 'rs0',
+  }
 };

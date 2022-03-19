@@ -1,23 +1,18 @@
 'use strict';
 
 const mongoose = require('mongoose');
-const MONGO_CONFIG = require('../config/mongo.js');
+const {
+  connectOptions,
+  mongoURL,
+  mongoPORT
+} = require('../config/mongo.js');
 
 module.exports = function(app) {
 
-  const options = {
-    ssl: false,
-    sslValidate: false,
-    poolSize: 1,
-    socketTimeoutMS: 5000,
-    connectionTimeoutMS: 0,
-    replicaSet: MONGO_CONFIG.MONGO_REPLICA_SET_NAME
-  };
-
-  let mongoConnect = `mongodb://${MONGO_CONFIG.mongoURL}:${MONGO_CONFIG.mongoPORT}`;
+  let mongoConnect = `mongodb://${mongoURL}:${mongoPORT}`;
 
   mongoose.Promise = global.Promise;
-  mongoose.connect(mongoConnect, options)
+  mongoose.connect(mongoConnect, connectOptions)
     .catch((err) => {
       if (err) console.error(err);
     });
