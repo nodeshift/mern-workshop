@@ -1,23 +1,27 @@
 const mongoose = require("mongoose");
-const { MongoMemoryServer } = require("mongodb-memory-server");
+const { MongoMemoryReplSet } = require("mongodb-memory-server");
 const {
-  connectOptions: { replicaSet, ...testingConnectOptions },
+  connectOptions,
   mongoURL,
   mongoPORT,
+  connectOptions: { replicaSet },
 } = require("../server/config/mongo.js");
 
 let mongod;
 
 module.exports.connect = async () => {
-  mongod = await MongoMemoryServer.create({
-    instance: {
-      port: +mongoPORT,
-    },
+  mongod = await MongoMemoryReplSet.create({
+    instanceOpts: [
+      {
+        port: +mongoPORT,
+      },
+    ],
+    replSet: { name: replicaSet },
   });
 
   let mongoConnect = `mongodb://${mongoURL}:${mongoPORT}`;
 
-  mongoose.connect(mongoConnect, testingConnectOptions).catch((err) => {
+  mongoose.connect(mongoConnect, connectOptions).catch((err) => {
     if (err) console.error(err);
   });
 };
