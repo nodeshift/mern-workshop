@@ -39,7 +39,7 @@ describe("Mongo CRUD", function () {
         .set("Accept", "application/json")
         .end((err, res) => {
           expect(res.statusCode).to.equal(200);
-          expect(res.headers["content-type"]).to.match(/json/);
+          expect(res.header["content-type"]).to.match(/json/);
           expect(res.body).deep.to.equal([]);
         });
     });
