@@ -41,8 +41,26 @@ describe("Mongo CRUD", function () {
           expect(res.headers["content-type"]).to.match(/json/);
           expect(res.body).deep.to.equal([]);
         });
-
     });
   });
 
+  describe("POST /todos", function () {
+    it("responds with json", async function () {
+      chai
+        .request(app)
+        .post("/api/todos")
+        .set("Content-Type", "application/json")
+        .send({
+          task: "description",
+          author: "NodeConfEU",
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an("object");
+          res.body.should.have
+            .property("message")
+            .eql("Todo successfully added!");
+        });
+    });
+  });
 });
