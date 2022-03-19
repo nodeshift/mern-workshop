@@ -1,10 +1,11 @@
-const request = require("supertest");
-// const assert = require("chai").assert;
-const expect = require("chai").expect;
-
-// const assert = require("assert");
 const express = require("express");
 const app = express();
+const expect = require("chai").expect;
+const chai = require("chai");
+let chaiHttp = require("chai-http");
+
+chai.use(chaiHttp);
+let should = chai.should();
 
 const dbHandler = require("../test/db-handler");
 
@@ -31,13 +32,17 @@ describe("Mongo CRUD", function () {
 
   describe("GET /todos", function () {
     it("responds with json", async function () {
-      let response = await request(app)
+      chai
+        .request(app)
         .get("/api/todos")
-        .set("Accept", "application/json");
+        .set("Accept", "application/json")
+        .end((err, res) => {
+          expect(res.statusCode).to.equal(200);
+          expect(res.headers["content-type"]).to.match(/json/);
+          expect(res.body).deep.to.equal([]);
+        });
 
-      expect(response.statusCode).to.equal(200);
-      expect(response.headers["content-type"]).to.match(/json/);
-      expect(response.body).deep.to.equal([]);
     });
   });
+
 });
