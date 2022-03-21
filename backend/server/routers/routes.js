@@ -76,7 +76,7 @@ module.exports = function(app) {
   });
 
   router.delete('/todos/:todo_id', (req, res) => {
-    Todo.remove({
+    Todo.deleteOne({
       _id: req.params.todo_id
     }, function(err, todo) {
       if (err) {
@@ -90,7 +90,7 @@ module.exports = function(app) {
 
   router.delete('/todos', (req, res) => {
     console.log("Attempting to delete all todos")
-    Todo.remove({}, function(err, todo) {
+    Todo.deleteMany({}, function(err, todo) {
       if (err) {
         res.status(500).send(err);
       } else {

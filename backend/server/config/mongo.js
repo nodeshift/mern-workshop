@@ -12,6 +12,7 @@ module.exports = {
     socketTimeoutMS: 5000,
     connectionTimeoutMS: 0,
     replicaSet: process.env.MONGO_REPLICA_SET_NAME || 'rs0',
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
   }
 };
