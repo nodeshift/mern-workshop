@@ -81,4 +81,36 @@ describe("Mongo CRUD", function () {
     });
   });
 
+  describe("DELETE /todo", function () {
+    let todos;
+    let deleteTodo;
+    beforeEach(async () => {
+      todos = await Todo.insertMany([
+        {
+          author: "Bob",
+          task: "Clean bicycle",
+        },
+        {
+          author: "Bob",
+          task: "Pay phone bill",
+        },
+      ]);
+      deleteTodo = todos.pop();
+    });
+
+    it("responds with json", async function () {
+      const res = await chai
+        .request(app)
+        .delete(`/api/todos/${deleteTodo._id}`)
+        .set("Accept", "application/json")
+        .send();
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.header["content-type"]).to.match(/json/);
+      expect(res.body.should.be.an("object"));
+      expect(
+        res.body.should.have.property("message").eql("Todo has been deleted")
+      );
+    });
+  });
 });
