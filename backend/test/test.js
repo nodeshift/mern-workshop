@@ -62,7 +62,7 @@ describe("Mongo CRUD", function () {
   });
 
   describe("POST /todos", function () {
-    it("responds with successfully added message", async function () {
+    it("responds with success message", async function () {
       chai
         .request(app)
         .post("/api/todos")
@@ -78,6 +78,41 @@ describe("Mongo CRUD", function () {
             .property("message")
             .eql("Todo successfully added!");
         });
+    });
+  });
+
+  describe("PUT /todo", function () {
+    let todos;
+    let updateTodo;
+    beforeEach(async () => {
+      todos = await Todo.insertMany([
+        {
+          author: "Bob",
+          task: "Clean bicycle",
+        },
+        {
+          author: "Bob",
+          task: "Pay phone bill",
+        },
+      ]);
+      updateTodo = todos[0];
+    });
+
+    it("success messsage", async function () {
+      const res = await chai
+        .request(app)
+        .put(`/api/todos/${updateTodo._id}`)
+        .set("Accept", "application/json")
+        .send();
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.header["content-type"]).to.match(/json/);
+      expect(res.body.should.be.an("object"));
+      expect(
+        res.body.should.have
+          .property("message")
+          .eql(`Updated todo ${updateTodo._id}`)
+      );
     });
   });
 
@@ -98,7 +133,7 @@ describe("Mongo CRUD", function () {
       deleteTodo = todos.pop();
     });
 
-    it("responds with json", async function () {
+    it("responds with success message", async function () {
       const res = await chai
         .request(app)
         .delete(`/api/todos/${deleteTodo._id}`)
