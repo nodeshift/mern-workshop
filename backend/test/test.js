@@ -116,6 +116,39 @@ describe("Mongo CRUD", function () {
     });
   });
 
+  describe("DELETE all /todos", function () {
+    let todos;
+    beforeEach(async () => {
+      todos = await Todo.insertMany([
+        {
+          author: "Bob",
+          task: "Clean bicycle",
+        },
+        {
+          author: "Bob",
+          task: "Pay phone bill",
+        },
+      ]);
+    });
+
+    it("responds with success message", async function () {
+      const res = await chai
+        .request(app)
+        .delete(`/api/todos`)
+        .set("Accept", "application/json")
+        .send();
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.header["content-type"]).to.match(/text\/html/);
+      expect(res.text.should.be.a("string").eql("Deleted todos data"));
+    });
+
+    afterEach(async () => {
+      const allTodos = await Todo.find();
+      expect(allTodos).to.deep.equal([]);
+    });
+  });
+
   describe("DELETE /todo", function () {
     let todos;
     let deleteTodo;
