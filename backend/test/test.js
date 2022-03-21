@@ -60,4 +60,25 @@ describe("Mongo CRUD", function () {
       expect(JSON.stringify(todos)).deep.to.equal(JSON.stringify(res.body));
     });
   });
+
+  describe("POST /todos", function () {
+    it("responds with successfully added message", async function () {
+      chai
+        .request(app)
+        .post("/api/todos")
+        .set("Content-Type", "application/json")
+        .send({
+          task: "description",
+          author: "NodeConfEU",
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.an("object");
+          res.body.should.have
+            .property("message")
+            .eql("Todo successfully added!");
+        });
+    });
+  });
+
 });
