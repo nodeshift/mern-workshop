@@ -4,13 +4,14 @@ const expect = require("chai").expect;
 const chai = require("chai");
 let chaiHttp = require("chai-http");
 
+const Todo = require("../server/model/todos");
+
 chai.use(chaiHttp);
 let should = chai.should();
 
 const dbHandler = require("../test/db-handler");
 
 describe("Mongo CRUD", function () {
-
   /**
    * Connect to a new in-memory database before running any tests.
    */
@@ -31,37 +32,32 @@ describe("Mongo CRUD", function () {
    */
   after(async () => await dbHandler.closeDatabase());
 
-  describe("GET /todos", function () {
+  describe("GET /todos", async function () {
+    let todos;
+    beforeEach(async () => {
+      todos = await Todo.insertMany([
+        {
+          author: "Bob",
+          task: "Clean bicycle",
+        },
+        {
+          author: "Bob",
+          task: "Pay phone bill",
+        },
+      ]);
+    });
+
     it("responds with json", async function () {
-      chai
+      const res = await chai
         .request(app)
         .get("/api/todos")
         .set("Accept", "application/json")
-        .end((err, res) => {
-          expect(res.statusCode).to.equal(200);
-          expect(res.header["content-type"]).to.match(/json/);
-          expect(res.body).deep.to.equal([]);
-        });
-    });
-  });
+        .send();
 
-  describe("POST /todos", function () {
-    it("responds with json", async function () {
-      chai
-        .request(app)
-        .post("/api/todos")
-        .set("Content-Type", "application/json")
-        .send({
-          task: "description",
-          author: "NodeConfEU",
-        })
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.an("object");
-          res.body.should.have
-            .property("message")
-            .eql("Todo successfully added!");
-        });
+      expect(res.statusCode).to.equal(200);
+      expect(res.header["content-type"]).to.match(/json/);
+      expect(res.body.should.be.an("array"));
+      expect(JSON.stringify(todos)).deep.to.equal(JSON.stringify(res.body));
     });
   });
 });

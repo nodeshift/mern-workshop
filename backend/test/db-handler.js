@@ -24,6 +24,24 @@ module.exports.connect = async () => {
   mongoose.connect(mongoConnect, connectOptions).catch((err) => {
     if (err) console.error(err);
   });
+
+  const db = mongoose.connection;
+
+  db.on("error", (error) => {
+    console.error(error);
+  });
+  db.on("close", () => {
+    console.info("Lost connection");
+  });
+  db.on("reconnect", () => {
+    console.info("Reconnected");
+  });
+
+  db.on("connected", () => {
+    console.info(
+      `Connection is established with mongodb, details: ${mongoConnect}`
+    );
+  });
 };
 
 module.exports.closeDatabase = async () => {
