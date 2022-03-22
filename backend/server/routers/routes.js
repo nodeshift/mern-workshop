@@ -81,9 +81,11 @@ module.exports = function(app) {
       if (err) {
         res.status(503).send(err);
       }
-      res.json({
-        message: 'Todo has been deleted'
-      })
+      else{
+        res.json({
+          message: 'Todo has been deleted'
+        })
+      }
     });
   });
 
