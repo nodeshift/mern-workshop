@@ -79,6 +79,22 @@ describe("Mongo CRUD", function () {
             .eql("Todo successfully added!");
         });
     });
+
+    it("responds with an error message", async function () {
+      chai
+        .request(app)
+        .post("/api/todos")
+        .set("Content-Type", "application/json")
+        .send({
+          task: "description",
+        })
+        .end((err, res) => {
+          res.should.have.status(422);
+          res.body.should.be.an("object");
+          res.header["content-type"].match(/text\/html/);
+          res.text.should.be.a("string").eql("Unprocessable Entity");
+        });
+    });
   });
 
   describe("PUT /todo", function () {
@@ -98,7 +114,7 @@ describe("Mongo CRUD", function () {
       updateTodo = todos[0];
     });
 
-    it("success messsage", async function () {
+    it("success responds with success messsage", async function () {
       const res = await chai
         .request(app)
         .put(`/api/todos/${updateTodo._id}`)
@@ -113,6 +129,17 @@ describe("Mongo CRUD", function () {
           .property("message")
           .eql(`Updated todo ${updateTodo._id}`)
       );
+    });
+
+    it("success responds with an error messsage", async function () {
+      const res = await chai
+        .request(app)
+        .put(`/api/todos/this_is_a_wrong_id`)
+        .set("Accept", "application/json")
+        .send();
+
+      expect(res.statusCode).to.equal(503);
+      expect(res.header["content-type"]).to.match(/json/);
     });
   });
 
@@ -179,6 +206,17 @@ describe("Mongo CRUD", function () {
       expect(
         res.body.should.have.property("message").eql("Todo has been deleted")
       );
+    });
+
+    it("responds with error message", async function () {
+      const res = await chai
+        .request(app)
+        .delete(`/api/todos/this_is_wrong_id`)
+        .set("Accept", "application/json")
+        .send();
+
+        expect(res.statusCode).to.equal(503);
+        expect(res.header["content-type"]).to.match(/json/);
     });
   });
 });
