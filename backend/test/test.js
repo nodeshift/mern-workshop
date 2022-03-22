@@ -32,6 +32,21 @@ describe("Mongo CRUD", function () {
    */
   after(async () => await dbHandler.closeDatabase());
 
+  describe("GET /health", async function () {
+    it("responds with json", async function () {
+      const res = await chai
+        .request(app)
+        .get("/health")
+        .set("Accept", "application/json")
+        .send();
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.header["content-type"]).to.match(/json/);
+      expect(res.body.should.be.an("object"));
+      expect(res.body.should.have.property("status").eql("UP"));
+    });
+  });
+
   describe("GET /todos", async function () {
     let todos;
     beforeEach(async () => {
@@ -215,8 +230,8 @@ describe("Mongo CRUD", function () {
         .set("Accept", "application/json")
         .send();
 
-        expect(res.statusCode).to.equal(503);
-        expect(res.header["content-type"]).to.match(/json/);
+      expect(res.statusCode).to.equal(503);
+      expect(res.header["content-type"]).to.match(/json/);
     });
   });
 });
