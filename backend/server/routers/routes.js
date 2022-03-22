@@ -65,7 +65,6 @@ module.exports = function(app) {
       },
       function(err, raw) {
         if (err) {
-          console.err(err)
           res.status(503).send(err)
         } else {
           res.json({
