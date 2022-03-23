@@ -36,7 +36,7 @@ module.exports = function(app) {
   db.on('disconnected', function() {
     console.info('Attempting to reconnect to MongoDB!');
     // Some duplication here, would be better to have in its own method
-    mongoose.connect(mongoConnect, options)
+    mongoose.connect(mongoConnect, connectOptions)
       .catch((err) => {
         if (err) console.error(err);
       });
