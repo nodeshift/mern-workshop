@@ -1,0 +1,26 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.22.1
+ignore: {}
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  SNYK-JS-LODASH-567746:
+    - appmetrics-dash > appmetrics > ibmapm-embed > log4js > streamroller > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-prometheus > appmetrics > ibmapm-embed > log4js > streamroller > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-dash > appmetrics > ibmapm-embed > ibmapm-restclient > kubernetes-client > async > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-prometheus > appmetrics > ibmapm-embed > ibmapm-restclient > kubernetes-client > async > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-dash > appmetrics > ibmapm-embed > log4js > streamroller > async > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-prometheus > appmetrics > ibmapm-embed > log4js > streamroller > async > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-dash > appmetrics > ibmapm-embed > ibmapm-restclient > log4js > streamroller > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-prometheus > appmetrics > ibmapm-embed > ibmapm-restclient > log4js > streamroller > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-dash > appmetrics > ibmapm-embed > ibmapm-restclient > log4js > streamroller > async > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
+    - appmetrics-prometheus > appmetrics > ibmapm-embed > ibmapm-restclient > log4js > streamroller > async > lodash:
+        patched: '2022-03-26T00:47:24.422Z'
