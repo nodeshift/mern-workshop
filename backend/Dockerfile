@@ -11,7 +11,6 @@ RUN apt-get update \
 
 # Copy package.json and package-lock.json
 COPY package*.json ./
-# COPY init-wrapper ./
 
 # Install app dependencies
 RUN npm install --production
