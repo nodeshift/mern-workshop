@@ -1,13 +1,9 @@
 const express = require("express");
 const app = express();
 const expect = require("chai").expect;
-const chai = require("chai");
-let chaiHttp = require("chai-http");
+const request = require("supertest");
 
 const Todo = require("../server/model/todos");
-
-chai.use(chaiHttp);
-let should = chai.should();
 
 const dbHandler = require("../test/db-handler");
 
@@ -34,16 +30,14 @@ describe("Mongo CRUD", function () {
 
   describe("GET /health", async function () {
     it("responds with json", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .get("/health")
-        .set("Accept", "application/json")
-        .send();
+        .set("Accept", "application/json");
 
       expect(res.statusCode).to.equal(200);
       expect(res.header["content-type"]).to.match(/json/);
-      expect(res.body.should.be.an("object"));
-      expect(res.body.should.have.property("status").eql("UP"));
+      expect(res.body).to.be.an("Object");
+      expect(res.body.status).to.equal("UP");
     });
   });
 
@@ -63,52 +57,44 @@ describe("Mongo CRUD", function () {
     });
 
     it("responds with json", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .get("/api/todos")
-        .set("Accept", "application/json")
-        .send();
+        .set("Accept", "application/json");
 
       expect(res.statusCode).to.equal(200);
       expect(res.header["content-type"]).to.match(/json/);
-      expect(res.body.should.be.an("array"));
-      expect(JSON.stringify(todos)).deep.to.equal(JSON.stringify(res.body));
+      expect(res.body).to.be.an("Array");
+      expect(res.body.length).to.equal(2);
     });
   });
 
   describe("POST /todos", function () {
     it("responds with success message", async function () {
-      chai
-        .request(app)
+      const res = await request(app)
         .post("/api/todos")
         .set("Content-Type", "application/json")
         .send({
           task: "description",
           author: "NodeConfEU",
-        })
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.an("object");
-          res.body.should.have
-            .property("message")
-            .eql("Todo successfully added!");
         });
+
+      expect(res.statusCode).to.equal(200);
+      expect(res.body).to.be.an("Object");
+      expect(res.body.message).to.equal("Todo successfully added!");
     });
 
     it("responds with an error message", async function () {
-      chai
-        .request(app)
+      const res = await request(app)
         .post("/api/todos")
         .set("Content-Type", "application/json")
         .send({
           task: "description",
-        })
-        .end((err, res) => {
-          res.should.have.status(422);
-          res.body.should.be.an("object");
-          res.header["content-type"].match(/text\/html/);
-          res.text.should.be.a("string").eql("Unprocessable Entity");
         });
+
+      expect(res.statusCode).to.equal(422);
+      expect(res.body).to.be.an("Object");
+      expect(res.header["content-type"]).to.match(/text\/html/);
+      expect(res.text).to.equal("Unprocessable Entity");
     });
   });
 
@@ -130,28 +116,26 @@ describe("Mongo CRUD", function () {
     });
 
     it("success responds with success messsage", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .put(`/api/todos/${updateTodo._id}`)
         .set("Accept", "application/json")
-        .send();
+        .send({
+          author: "Ann",
+        });
 
       expect(res.statusCode).to.equal(200);
       expect(res.header["content-type"]).to.match(/json/);
-      expect(res.body.should.be.an("object"));
-      expect(
-        res.body.should.have
-          .property("message")
-          .eql(`Updated todo ${updateTodo._id}`)
-      );
+      expect(res.body).to.be.an("Object");
+      expect(res.body.message).to.equal(`Updated todo ${updateTodo._id}`);
     });
 
     it("success responds with an error messsage", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .put(`/api/todos/this_is_a_wrong_id`)
         .set("Accept", "application/json")
-        .send();
+        .send({
+          author: "Ann",
+        });
 
       expect(res.statusCode).to.equal(503);
       expect(res.header["content-type"]).to.match(/json/);
@@ -174,15 +158,14 @@ describe("Mongo CRUD", function () {
     });
 
     it("responds with success message", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .delete(`/api/todos`)
         .set("Accept", "application/json")
         .send();
 
       expect(res.statusCode).to.equal(200);
       expect(res.header["content-type"]).to.match(/text\/html/);
-      expect(res.text.should.be.a("string").eql("Deleted todos data"));
+      expect(res.text).to.equal("Deleted todos data");
     });
 
     afterEach(async () => {
@@ -209,23 +192,19 @@ describe("Mongo CRUD", function () {
     });
 
     it("responds with success message", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .delete(`/api/todos/${deleteTodo._id}`)
         .set("Accept", "application/json")
         .send();
 
       expect(res.statusCode).to.equal(200);
       expect(res.header["content-type"]).to.match(/json/);
-      expect(res.body.should.be.an("object"));
-      expect(
-        res.body.should.have.property("message").eql("Todo has been deleted")
-      );
+      expect(res.body).to.be.an("object");
+      expect(res.body.message).equal("Todo has been deleted");
     });
 
     it("responds with error message", async function () {
-      const res = await chai
-        .request(app)
+      const res = await request(app)
         .delete(`/api/todos/this_is_wrong_id`)
         .set("Accept", "application/json")
         .send();
