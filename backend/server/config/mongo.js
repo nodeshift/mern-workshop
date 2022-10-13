@@ -9,7 +9,7 @@ module.exports = {
     ssl: false,
     sslValidate: false,
     socketTimeoutMS: 5000,
-    replicaSet: process.env.MONGO_REPLICA_SET_NAME || 'rs0',
+    replicaSet: process.env.MONGO_REPLICA_SET_NAME ,
     useUnifiedTopology: true,
   },
 };
