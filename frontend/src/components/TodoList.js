@@ -1,10 +1,10 @@
 import React from 'react';
 import Todo from "./Todo";
-import style from "./TodoList.css";
+import "./TodoList.css";
 
 const TodoList = ({ list, removeTodo }) => {
   return (
-    <ul className={style.TodoList}>
+    <ul className="TodoList">
       {list.map((item) => {
         return (
           <Todo 

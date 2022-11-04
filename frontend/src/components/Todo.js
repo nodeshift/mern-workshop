@@ -1,11 +1,11 @@
 import React from 'react';
-import style from "./Todo.css";
+import "./Todo.css";
 
 const Todo = ({ todo, remove }) => {
   return (
-    <li className={style.Todo}>
+    <li className="Todo">
       {todo.task}
-      <span className={style.delete} onClick={remove}>
+      <span className="delete" onClick={remove}>
         <span>X</span>
       </span>
     </li>
