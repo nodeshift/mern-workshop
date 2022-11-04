@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import style from "./TodoForm.css";
+import "./TodoForm.css";
 
 const TodoForm = ({ addTodo }) => {
   // input state using react-hooks
@@ -19,7 +19,7 @@ const TodoForm = ({ addTodo }) => {
   };
 
   return (
-    <form className={style.TodoForm} onSubmit={handleSubmit} >
+    <form className="TodoForm" onSubmit={handleSubmit} >
       <input name="task" type="text"
         onChange={handleChange}
         value={inputValue}

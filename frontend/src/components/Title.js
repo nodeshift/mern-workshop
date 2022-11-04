@@ -1,10 +1,10 @@
 import React from 'react';
-import style from "./Title.css";
+import "./Title.css";
 
 const Title = props => {
   return(
-    <div className = {style.Title}>
-        <h1 className = {style.Name}>
+    <div className="Title">
+        <h1 className="Name">
             {props.title} ({props.count})
         </h1>
     </div>

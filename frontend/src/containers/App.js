@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Title from '../components/Title';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
-import style from "./App.css";
+import "./App.css";
 
 const API_URL = 'http://localhost:30555/api/todos';
 
@@ -53,7 +53,7 @@ const App = () => {
   };
 
   return (
-    <div className={style.TodoApp}>
+    <div className="TodoApp">
       <Title title="todos" count={data.length} />
       <TodoForm addTodo={addTodo} />
       <TodoList list={data} removeTodo={removeTodo} />
