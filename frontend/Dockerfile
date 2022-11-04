@@ -1,5 +1,5 @@
 ### STAGE 1: Build ###
-FROM node:12 as build
+FROM node:16 as build
 RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 ENV PATH /usr/src/app/node_modules/.bin:$PATH
@@ -10,7 +10,7 @@ COPY . /usr/src/app
 RUN npm run build
 
 ### STAGE 2: Production Environment ###
-FROM nginx:1.23.3-alpine
+FROM nginx:1.23.1-alpine
 COPY --from=build /usr/src/app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]

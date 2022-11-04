@@ -9,7 +9,7 @@ Install Docker on your Mac.
 
 ```
 docker build -t frontend:v1.0.0 .
-docker run -p 3001:80 -e frontend:v1.0.0
+docker run -p 3001:80 frontend:v1.0.0
 ```
 
 ### Kubernetes
