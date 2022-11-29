@@ -19,17 +19,19 @@ Tested using the Kubernetes service provided by [Docker for Desktop on Mac](http
 - `npm install`
 - `npm start`
 
-## Quickstart for Docker
-- `docker build -f frontend/Dockerfile -t frontend:v1.0.0 frontend`
-- `docker build -f backend/Dockerfile  -t backend:v1.0.0 backend`
-- `docker pull mongo`
-- `docker run -d -p 27017:27017 --name mern-mongo mongo `
-- `export MONGO_URL=$(docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}' mern-mongo)`
-- `docker run -p 30555:30555 -e MONGO_URL=$MONGO_URL backend:v1.0.0`
-- In a new Terminal - `docker run -p 3001:80 frontend:v1.0.0`
+## Quickstart for Podman
+- `podman build -f frontend/Dockerfile -t frontend:v1.0.0 frontend`
+- `podman build -f backend/Dockerfile  -t backend:v1.0.0 backend`
+- `podman pull mongo`
+- `podman network create mern-workshop`
+- `podman run -d --net mern-workshop --name mern-mongo mongo`
+- `podman run -d -p 30555:30555 --net mern-workshop -e MONGO_URL=mern-mongo --name mern-backend backend:v1.0.0`
+- `podman run -p 3001:80 frontend:v1.0.0`
 
-## Quickstart for Docker-Compose
-You can use docker-compose to quickly deploy multiple services at once.
+## Quickstart for Podman-Compose
+You can use podman-compose to quickly deploy multiple services at once.
+
+- Install podman compose https://github.com/containers/podman-compose#installation
 
 - Create a file called `docker-compose.yaml` at the root of the project and copy copy/paste the following yaml:
 
@@ -56,7 +58,7 @@ services:
     ports:
       - 27017:27017
 ```
-- Run `docker-compose up` to deploy the services.
+- Run `podman-compose up` to deploy the services.
 
 ## Quickstart for Kubernetes
 Requires building the images first, see the quickstart for Docker section.
