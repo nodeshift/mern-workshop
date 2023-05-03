@@ -1,5 +1,5 @@
 # Install the app dependencies in a full Node docker image
-FROM node:12
+FROM node:16
 
 WORKDIR "/app"
 
@@ -16,7 +16,7 @@ COPY package*.json ./
 RUN npm install --production
 
 # Copy the dependencies into a Slim Node docker image
-FROM node:12-slim
+FROM node:16-slim
 
 WORKDIR "/app"
 
@@ -33,6 +33,6 @@ COPY . /app
 ENV NODE_ENV production
 ENV PORT 30555
 
-
 EXPOSE 30555
-CMD ["npm", "start"]
+
+CMD ["node", "server/server.js"]
