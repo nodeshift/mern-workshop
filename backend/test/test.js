@@ -9,7 +9,7 @@ const dbHandler = require("../test/db-handler");
 
 describe("Mongo CRUD", function () {
   /**
-   * Connect to a new in-memory database before running any tests.
+   * Connect to a new in-memory mongo database, before running any tests.
    */
   before(async () => {
     await dbHandler.connect();
@@ -19,14 +19,16 @@ describe("Mongo CRUD", function () {
   });
 
   /**
-   * Clear all test data after every test.
+   * Clear DB data after each test.
    */
   afterEach(async () => await dbHandler.clearDatabase());
 
   /**
-   * Remove and close the db and server.
+   * Remove and close db after all tests have run.
    */
-  after(async () => await dbHandler.closeDatabase());
+  after(async () => {
+    await dbHandler.closeDatabase();
+  });
 
   describe("GET /health", async function () {
     it("responds with json", async function () {
