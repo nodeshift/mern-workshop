@@ -19,7 +19,7 @@ module.exports.connect = async () => {
     replSet: { name: replicaSet },
   });
 
-  let mongoConnect = `mongodb://${mongoURL}:${mongoPORT}`;
+  let mongoConnect = `mongodb://${mongoURL}:${mongoPORT}/?replicaSet=${replicaSet}`;
 
   mongoose.connect(mongoConnect, connectOptions).catch((err) => {
     if (err) console.error(err);
