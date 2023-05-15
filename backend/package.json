@@ -28,5 +28,6 @@
     "mongodb-memory-server": "^8.9.3",
     "nyc": "^15.1.0",
     "supertest": "^6.3.0"
-  }
+  },
+  "support": true
 }
