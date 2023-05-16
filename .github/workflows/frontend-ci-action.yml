@@ -26,6 +26,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: npm install
     - run: npm run test -- --coverage
+    - run: npx @pkgjs/support validate
     - run: npm run build
     - name: Coveralls Parallel
       uses: coverallsapp/github-action@v2
