@@ -10,7 +10,7 @@
   "scripts": {
     "start": "node server/server.js",
     "build": "NODE_ENV=production webpack",
-    "test": "mocha",
+    "test": "nyc mocha --recursive",
     "dev": "MONGO_URL='root:password@localhost' npm run start",
     "coverage": "nyc npm run test"
   },
