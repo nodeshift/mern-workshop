@@ -9,10 +9,8 @@
   },
   "scripts": {
     "start": "node server/server.js",
-    "build": "NODE_ENV=production webpack",
     "test": "nyc mocha --recursive",
-    "dev": "MONGO_URL='root:password@localhost' npm run start",
-    "coverage": "nyc npm run test"
+    "dev": "MONGO_URL='root:password@localhost' npm run start"
   },
   "dependencies": {
     "body-parser": "^1.20.1",
@@ -28,5 +26,6 @@
     "mongodb-memory-server": "^8.9.3",
     "nyc": "^15.1.0",
     "supertest": "^6.3.0"
-  }
+  },
+  "support": true
 }
