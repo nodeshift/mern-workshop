@@ -1,15 +1,15 @@
 .Todo {
-    margin: 0.5em 0em;
-    text-align: left;
-    padding: 0.1em 1em ;
-    font-size: 1.5em;
-    width: 90%;
+  margin: 0.5em 0em;
+  text-align: left;
+  padding: 0.1em 1em;
+  font-size: 1.5em;
+  width: 90%;
 }
 
 .delete {
-    float: right;
+  float: right;
 }
 
 .delete:hover {
-    cursor: pointer;
+  cursor: pointer;
 }

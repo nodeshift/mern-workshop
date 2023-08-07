@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Title from '../components/Title';
 import TodoForm from '../components/TodoForm';
 import TodoList from '../components/TodoList';
-import "./App.css";
+import './App.css';
 
 const API_URL = 'http://localhost:30555/api/todos';
 
@@ -16,35 +16,35 @@ const App = () => {
   };
 
   // Run effect on componentDidMount
-  useEffect(() => { getTodos(); }, []);
+  useEffect(() => {
+    getTodos();
+  }, []);
 
   const addTodo = (description) => {
-    fetch(
-      API_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          task: description,
-          author: "NodeConfEU"
-        })
-      }
-    )
-    .then((response) => response.json())
-    .then(() => getTodos())
-    .catch((err) => {
-      console.log(err);
-    });
+    fetch(API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        task: description,
+        author: 'NodeConfEU',
+      }),
+    })
+      .then((response) => response.json())
+      .then(() => getTodos())
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   const removeTodo = (id) => {
     fetch(API_URL + '/' + id, {
-        method: 'DELETE'
-      })
+      method: 'DELETE',
+    })
       .then((response) => response.json())
       .then(() => {
-        const remainder = data.filter(todo => todo._id !== id);
+        const remainder = data.filter((todo) => todo._id !== id);
         setData(remainder);
       })
       .catch((err) => {
