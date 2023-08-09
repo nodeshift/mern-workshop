@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import "./TodoForm.css";
+import './TodoForm.css';
 
 const TodoForm = ({ addTodo }) => {
   // input state using react-hooks
   const [inputValue, setInputValue] = useState('');
-  
+
   const handleChange = (event) => {
     setInputValue(event.target.value);
   };
@@ -19,8 +19,10 @@ const TodoForm = ({ addTodo }) => {
   };
 
   return (
-    <form className="TodoForm" onSubmit={handleSubmit} >
-      <input name="task" type="text"
+    <form className="TodoForm" onSubmit={handleSubmit}>
+      <input
+        name="task"
+        type="text"
         onChange={handleChange}
         value={inputValue}
         placeholder="Task description"

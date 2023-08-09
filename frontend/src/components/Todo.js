@@ -1,5 +1,5 @@
 import React from 'react';
-import "./Todo.css";
+import './Todo.css';
 
 const Todo = ({ todo, remove }) => {
   return (
