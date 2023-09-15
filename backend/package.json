@@ -21,7 +21,7 @@
     "mongoose": "^6.12.0"
   },
   "devDependencies": {
-    "chai": "^4.3.6",
+    "chai": "^4.3.8",
     "mocha": "^10.0.0",
     "mongodb-memory-server": "^8.15.1",
     "nyc": "^15.1.0",
