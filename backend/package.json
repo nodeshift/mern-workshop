@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "body-parser": "^1.20.1",
-    "connect-mongo": "^5.0.0",
+    "connect-mongo": "^5.1.0",
     "cors": "^2.8.4",
     "express": "^4.18.2",
     "log4js": "^6.7.0",
