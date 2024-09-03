@@ -11,24 +11,43 @@ MongoDB is deployed with persistence and replicas: this is where todo items are 
 Tested using the Kubernetes service provided by [Docker for Desktop on Mac](https://docs.docker.com/docker-for-mac/kubernetes/).
 
 ## Quickstart for local development
-- Deploy MongoDB as a Docker container or on Kubernetes first
-- `cd backend`
-- `npm install`
-- `npm start`
-- `cd ../frontend`
-- `npm install`
-- `npm start`
+
+- Start a containerized MongoDB
+
+```sh
+  podman  run --name mongodb -d -p 27017:27017  mongo:7
+```
+
+- Start the backend service
+
+```sh
+  cd backend
+  npm install
+  npm start
+```
+
+- Start the frontend service
+
+```sh
+  cd ../frontend
+  npm install
+  npm start
+```
 
 ## Quickstart for Podman
+
 - `podman build -f frontend/Dockerfile -t frontend:v1.0.0 frontend`
 - `podman build -f backend/Dockerfile  -t backend:v1.0.0 backend`
-- `podman pull mongo`
+- `podman pull mongo:7`
 - `podman network create mern-workshop`
-- `podman run -d --net mern-workshop --name mern-mongo mongo`
+- `podman run -d --net mern-workshop --name mern-mongo mongo:7`
 - `podman run -d -p 30555:30555 --net mern-workshop -e MONGO_URL=mern-mongo --name mern-backend backend:v1.0.0`
 - `podman run -p 3001:80 frontend:v1.0.0`
 
+Visit the application on `localhost:3001`
+
 ## Quickstart for Podman-Compose
+
 You can use podman-compose to quickly deploy multiple services at once.
 
 - Install podman compose https://github.com/containers/podman-compose#installation
@@ -58,9 +77,11 @@ services:
     ports:
       - 27017:27017
 ```
+
 - Run `podman-compose up` to deploy the services.
 
 ## Quickstart for Kubernetes
+
 Requires building the images first, see the quickstart for Docker section.
 
 - Set your Kubernetes context so you're pointing to a Kubernetes environment.
