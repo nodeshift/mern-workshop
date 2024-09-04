@@ -1,47 +1,24 @@
 const mongoose = require("mongoose");
-const { MongoMemoryReplSet } = require("mongodb-memory-server");
-const {
-  connectOptions,
-  mongoURL,
-  mongoPORT,
-  connectOptions: { replicaSet },
-} = require("../server/config/mongo.js");
+const { MongoMemoryServer } = require("mongodb-memory-server");
+const { mongoPORT } = require("../server/config/mongo.js");
 
 let mongod;
 
 module.exports.connect = async () => {
-  mongod = await MongoMemoryReplSet.create({
+  mongod = await MongoMemoryServer.create({
     instanceOpts: [
       {
         port: +mongoPORT,
       },
     ],
-    replSet: { name: replicaSet },
   });
 
-  let mongoConnect = `mongodb://${mongoURL}:${mongoPORT}/?replicaSet=${replicaSet}`;
-
-  mongoose.connect(mongoConnect, connectOptions).catch((err) => {
-    if (err) console.error(err);
-  });
-
-  const db = mongoose.connection;
-
-  db.on("error", (error) => {
-    console.error(error);
-  });
-  db.on("close", () => {
-    console.info("Lost connection");
-  });
-  db.on("reconnect", () => {
-    console.info("Reconnected");
-  });
-
-  db.on("connected", () => {
-    console.info(
-      `Connection is established with mongodb, details: ${mongoConnect}`
-    );
-  });
+  try {
+    await mongoose.connect(mongod.getUri());
+    console.info(`Connection is established with mongodb.`);
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports.closeDatabase = async () => {
