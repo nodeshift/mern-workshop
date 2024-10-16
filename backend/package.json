@@ -22,7 +22,7 @@
   "devDependencies": {
     "chai": "^4.4.1",
     "mocha": "^10.7.0",
-    "mongodb-memory-server": "^10.0.0",
+    "mongodb-memory-server": "^10.0.1",
     "nyc": "^17.0.0",
     "supertest": "^7.0.0"
   },
