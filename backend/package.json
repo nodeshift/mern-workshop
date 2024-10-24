@@ -17,7 +17,7 @@
     "cors": "^2.8.4",
     "express": "^4.21.1",
     "log4js": "^6.7.0",
-    "mongoose": "^8.6.3"
+    "mongoose": "^8.7.0"
   },
   "devDependencies": {
     "chai": "^4.4.1",
